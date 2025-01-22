@@ -3,6 +3,7 @@ import { createContext,useState } from "react";
 export const ShopingCartContext=createContext()
 
 export const ShopingCartProvider=({children})=>{
+
     //shoping cart increment quantity
     const [count,setCount]=useState(0)
 
@@ -12,18 +13,21 @@ export const ShopingCartProvider=({children})=>{
     const openProductDetail=()=>setIsProductDetailOpen(true)
     const closeProductDetail=()=>setIsProductDetailOpen(false)
 
+    //CHECKOUT SIDE MENU: open/close
+    const [isCheckoutSideMenuOpen,setIsCheckoutSideMenuOpen]=useState(false)
+
+    const openCheckoutSideMenu=()=>setIsCheckoutSideMenuOpen(true)
+    const closeCheckoutSideMenu=()=>setIsCheckoutSideMenuOpen(false)
+
     //Product Detail-show Product
     const [productToShow,setProductToShow]=useState({})
 
     //Add a product to Cart
     const [cartProducts,setCartProducts]=useState([])
 
-    //CHECKOUT SIDE MENU: open/close
-    const [isCheckoutSideMenuOpen,setIsCheckoutSideMenuOpen]=useState(false)
 
-    const openCheckoutSideMenu=()=>setIsCheckoutSideMenuOpen(true)
-    const closeCheckoutSideMenu=()=>setIsCheckoutSideMenuOpen(false)
-    //
+    //Shopping Cart: Order
+    const [order,setOrder]=useState([])
 
     return(
         <ShopingCartContext.Provider value={{
@@ -38,7 +42,9 @@ export const ShopingCartProvider=({children})=>{
             setCartProducts,
             isCheckoutSideMenuOpen,
             openCheckoutSideMenu,
-            closeCheckoutSideMenu
+            closeCheckoutSideMenu,
+            order,
+            setOrder
         }}>
             {children}
         </ShopingCartContext.Provider>
