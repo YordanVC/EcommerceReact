@@ -1,5 +1,6 @@
 import { XMarkIcon } from '@heroicons/react/24/solid'
-import { useContext } from "react"
+import { useContext} from "react"
+import { Link } from 'react-router-dom'
 import { ShopingCartContext } from "../../Context"
 import{totalPrice} from "../../utils/index"
 import OrderCard from '../OrderCard'
@@ -7,6 +8,7 @@ import './styles.css'
 
 const CheckoutSideMenu = () => {
     const context = useContext(ShopingCartContext)
+    
     const handleDelete=(id)=>{
         const filteredProducts=context.cartProducts.filter(product=>product.id!=id)
         context.setCartProducts(filteredProducts)
@@ -22,6 +24,7 @@ const CheckoutSideMenu = () => {
         }
         context.setOrder([...context.order,orderToAdd])
         context.setCartProducts([])
+        context.setSearchByTitle(null)
     }
     return (
         <aside
@@ -51,7 +54,9 @@ const CheckoutSideMenu = () => {
                     <span className='font-light'>Total:</span>
                     <span className='font-medium text-2xl'>${totalPrice(context.cartProducts)}</span>
                 </p>
-                <button className='w-full bg-black py-3 text-white rounded-lg mb-3' onClick={()=>handleCheckout()}>Checkout</button>
+                <Link to="/my-orders/last">
+                    <button className='w-full bg-black py-3 text-white rounded-lg mb-3' onClick={()=>handleCheckout()}>Checkout</button>    
+                </Link>   
             </div>
 
         </aside>
